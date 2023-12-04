@@ -8,11 +8,11 @@ router.post("/",async(req,res) => {
     const user = await User.findOne({email: req.body.email});
     
     if (!user)
-        return res.status(400).send({message: "Email o password non validi"});
+        return res.status(400).send({message: "Email or password non valid"});
 
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if(!validPassword)
-        return res.status(400).send({message: "Email o password non validi"});
+        return res.status(400).send({message: "Email or password non valid"});
 
     const token = user.generateAuthToken();
     res.status(200).send({data: token, message: "Accesso in corso..."});
